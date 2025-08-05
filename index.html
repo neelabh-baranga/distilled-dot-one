@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing Animation</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #fff;
+      font-family: Helvetica, sans-serif;
+      font-weight: bold;
+      font-size: 2rem;
+      color: black;
+    }
+    .container {
+      display: flex;
+      justify-content: flex-start;
+      padding-left: 5vw;
+    }
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background: black;
+      animation: blink 0.7s steps(2, start) infinite;
+      vertical-align: bottom;
+      position: absolute;
+    }
+    .blue {
+      color: #006ec4;
+    }
+    .text-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    @keyframes blink {
+      to { visibility: hidden; }
+    }
+    #owner {
+      font-size: 0.5rem;
+      color: grey;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="text"></div>
+  </div>
+  <div class="container">
+  <div id="owner">Owned by: NB</div>
+    </div>
+
+  <script>
+    const sequence = [
+      { html: '<span class="text-wrapper">D<span class="blue">o</span><span class="cursor"></span></span>', delay: 1000 },
+      { html: '<span class="text-wrapper">D<span class="blue">o</span><span class="blue">n</span><span class="cursor"></span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">D<span class="blue">one</span><span class="cursor"></span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">D<span class="blue">one</span></span>', delay: 2000 },
+      { html: '<span class="text-wrapper">D<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Di<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Dis<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Dist<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Disti<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Disti<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Distil<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Distill<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Distille<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Distilled<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Distilled.<span class="cursor"></span><span class="blue">one</span></span>', delay: 100 },
+      { html: '<span class="text-wrapper">Distilled.<span class="blue">one</span></span>', delay: 5000 },
+
+    ];
+
+    const textEl = document.getElementById('text');
+
+    let index = 0;
+
+    function renderStep() {
+      textEl.innerHTML = sequence[index].html;
+      index = (index + 1) % sequence.length;
+      const prevIndex = (index + sequence.length - 1) % sequence.length;
+      setTimeout(renderStep, sequence[prevIndex].delay);
+    }
+
+    renderStep();
+  </script>
+</body>
+</html>
